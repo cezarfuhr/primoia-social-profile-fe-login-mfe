@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,21 +13,40 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  errorMessage: string = '';
+  loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(3)]]
     });
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      // TODO: Implementar lógica de autenticação
-      console.log('Form submitted:', this.loginForm.value);
+      this.loading = true;
+      this.errorMessage = '';
+
+      this.authService.login(this.loginForm.value).subscribe({
+        next: (response) => {
+          console.log('Login successful:', response);
+          // Redirecionar para o micro frontend home
+          window.location.href = 'http://localhost:4201/dashboard';
+        },
+        error: (error) => {
+          console.error('Login error:', error);
+          this.errorMessage = 'Erro ao fazer login. Verifique suas credenciais.';
+          this.loading = false;
+        },
+        complete: () => {
+          this.loading = false;
+        }
+      });
     }
   }
 }
