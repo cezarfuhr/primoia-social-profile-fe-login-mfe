@@ -32,14 +32,18 @@ export class LoginComponent {
       this.loading = true;
       this.errorMessage = '';
 
+      console.log('Iniciando login...');
+      
       this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
-          console.log('Login successful:', response);
+          console.log('Login bem sucedido:', response);
+          console.log('Token salvo:', localStorage.getItem('auth_token'));
+          console.log('Dados do usuário salvos:', localStorage.getItem('user_data'));
           // Redirecionar para o micro frontend home
           window.location.href = 'http://localhost:4201/dashboard';
         },
         error: (error) => {
-          console.error('Login error:', error);
+          console.error('Erro no login:', error);
           this.errorMessage = 'Erro ao fazer login. Verifique suas credenciais.';
           this.loading = false;
         },
