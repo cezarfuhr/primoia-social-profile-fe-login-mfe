@@ -1,59 +1,64 @@
-# Login
+# Login Micro Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.0.
+Este é o micro frontend responsável pelo módulo de autenticação do sistema.
 
-## Development server
+## Requisitos
 
-To start a local development server, run:
+- Node.js 20.x
+- npm 10.x
+- Docker (opcional)
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Desenvolvimento Local
 
 ```bash
-ng generate component component-name
+# Instalar dependências
+npm install
+
+# Executar em modo de desenvolvimento
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+O aplicativo estará disponível em `http://localhost:4200`
+
+## Executando com Docker
 
 ```bash
-ng generate --help
+# Construir a imagem
+docker build -t mfe-login .
+
+# Executar o container
+docker run -d -p 4200:4200 mfe-login
 ```
 
-## Building
+O aplicativo estará disponível em `http://localhost:4200`
 
-To build the project run:
+## Funcionalidades
 
-```bash
-ng build
-```
+- Login com email e senha
+- Registro de novos usuários
+- Recuperação de senha
+- Redefinição de senha
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Estrutura do Projeto
 
-## Running unit tests
+O projeto segue a estrutura padrão Angular com os seguintes componentes principais:
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- `src/app/components/login`: Componente de login
+- `src/app/components/register`: Componente de registro
+- `src/app/components/forgot-password`: Componente de recuperação de senha
+- `src/app/components/reset-password`: Componente de redefinição de senha
 
-```bash
-ng test
-```
+## Configuração CORS
 
-## Running end-to-end tests
+O projeto está configurado para aceitar requisições de qualquer origem em ambiente de desenvolvimento. Para produção, você deve ajustar as configurações CORS no arquivo `nginx.conf` conforme necessário.
 
-For end-to-end (e2e) testing, run:
+## Integração
 
-```bash
-ng e2e
-```
+Este micro frontend pode ser integrado ao projeto principal através de Module Federation. As configurações necessárias já estão presentes no projeto.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Scripts Disponíveis
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- `npm start`: Inicia o servidor de desenvolvimento
+- `npm run build`: Gera o build de produção
+- `npm test`: Executa os testes
+- `npm run lint`: Executa o linter
