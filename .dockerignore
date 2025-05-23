@@ -1,0 +1,23 @@
+# Dependências
+node_modules
+npm-debug.log
+
+# Arquivos de build
+dist
+.angular
+
+# Arquivos de desenvolvimento
+.git
+.gitignore
+.editorconfig
+.vscode
+*.md
+*.spec.ts
+
+# Arquivos de ambiente
+.env
+.env.*
+
+# Outros
+.DS_Store
+Thumbs.db 
